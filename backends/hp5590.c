@@ -17,6 +17,7 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
+#include <stdint.h>
 #include <string.h>
 #include <syslog.h>
 #include <errno.h>
@@ -265,17 +266,17 @@ scanbtnd_close(scanner_t* scanner)
 /* Structure describing control URB */
 struct usb_in_usb_ctrl_setup
 {
-       u_int8_t  bRequestType;
-       u_int8_t  bRequest;
-       u_int16_t wValue;
-       u_int16_t wIndex;
-       u_int16_t wLength;
+       uint8_t  bRequestType;
+       uint8_t  bRequest;
+       uint16_t wValue;
+       uint16_t wIndex;
+       uint16_t wLength;
 } __attribute__ ((packed));
 
 static int
 hp5590_get_ack (scanner_t *scanner)
 {
-       u_int8_t        status;
+       uint8_t        status;
        int                     ret;
 
        /* Check if USB-in-USB operation was accepted */
@@ -309,8 +310,8 @@ hp5590_control_msg (scanner_t *scanner,
        int                                                             ret;
        unsigned int                                    len;
        unsigned char                                   *ptr;
-       u_int8_t                                                ack;
-       u_int8_t                                                response;
+       uint8_t                                                ack;
+       uint8_t                                                response;
 
        /* IN (read) operation will be performed */
        if (requesttype & USB_DIR_IN)
@@ -475,7 +476,7 @@ hp5590_control_msg (scanner_t *scanner,
 static int
 hp5590_verify_last_cmd (scanner_t *scanner, unsigned int cmd)
 {
-       u_int16_t               verify_cmd;
+       uint16_t               verify_cmd;
        unsigned int    last_cmd;
        unsigned int    core_status;
        int                             ret;
@@ -531,7 +532,7 @@ int
 scanbtnd_get_button(scanner_t* scanner)
 {
        int             button = 0;
-       u_int16_t       button_status;
+       uint16_t       button_status;
        int                     ret;
 
        if (!scanner->is_open)
